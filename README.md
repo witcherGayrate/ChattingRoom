@@ -1,7 +1,7 @@
 # ChattingRoom
-The application supports multi-person online chatting and file transfer. 
+该应用程序支持多人在线聊天和文件传输。
 
-The ultimate goal is to realize a chat software with the basic functions of WeChat.
+目标是实现一个具备微信基本功能的聊天软件。
 
 #项目概述
 
