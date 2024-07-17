@@ -1,0 +1,98 @@
+QDialog#LoginDialog {
+
+background-image: url(:/icons/C:/Users/wang/Desktop/demo_icons/man-7750139_1920.png)
+
+}
+
+#lab_forget:hover{
+color: red
+}
+
+
+#RegisterDialog{
+
+background-image: url(:/icons/C:/Users/wang/Desktop/demo_icons/registerbackground.jpg)
+}
+
+#lab_tip[state="normal"]
+{
+color:green
+}
+#lab_tip[state="err"]
+{
+color: red
+}
+
+
+#RegisterDialog #lab_user_logup,#lab_email,#lab_pass_logup,#lab_sure,#lab_acquire,#lab_verify,#lab_tip_return,#lab_tip_click{
+color: white
+}
+
+
+#pass_visible[state='unvisible']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/unvisible.png)
+}
+
+#pass_visible[state='unvisible_hover']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/unvisible_hover.png)
+}
+
+#pass_visible[state='visible']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/visible.png)
+}
+
+#pass_visible[state='visible_hover']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/visible_hover)
+}
+
+#confirm_visible[state='unvisible']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/unvisible.png)
+}
+
+#confirm_visible[state='unvisible_hover']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/unvisible_hover.png)
+}
+
+#confirm_visible[state='visible']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/visible.png)
+}
+#confirm_visible[state='visible_hover']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/visible_hover.png)
+}
+
+
+#ResetDialog{
+background-image: url(:/icons/C:/Users/wang/Desktop/demo_icons/registerbackground.jpg);
+background-repeat: no-repeat;
+background-position: top left;
+background-size: cover;
+}
+
+#lab_error_tip[state="normal"]
+{
+color:green
+}
+#lab_error_tip[state="err"]
+{
+color: red
+}
+
+#ResetDialog #lab_user,#lab_email,#lab_pwd,#lab_sure,#lab_verifycode{
+color: white
+}
+
+#newpwd_visible[state='unvisible']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/unvisible.png)
+}
+
+#newpwd_visible[state='unvisible_hover']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/unvisible_hover.png)
+}
+
+#newpwd_visible[state='visible']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/visible.png)
+}
+
+#newpwd_visible[state='visible_hover']{
+    border-image: url(:/icons/Program Files/llfc_project/llfcchat-master/client/llfcchat/res/visible_hover)
+}
