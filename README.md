@@ -5,13 +5,15 @@
 
 #项目概述
 
-（1）PC客户端client界面基于Qt6框架开发
+（1）PC客户端client界面基于Qt6框架开发，实现气泡聊天对话框，支持添加好友，好友通信，聊天记录展示等功能。仿照微信实现聊天布局和qss优化
 
-（2）服务器端包括多个servers，主要语言为C/C++,验证码服务verify server使用node.js
+（2）后端采用分布式设计，主要语言为C/C++,验证码服务verify server使用node.js
 
-（3）服务器Servers包括GateServer网关服务器、StatusServer状态服务器，VerifyServer验证码服务器，CommunicationServer通信服务器，各个服务之间通过grpc通信，client和server使用asio通信。
+（3）服务器Servers包括GateServer网关服务器、StatusServer状态服务器，VerifyServer验证码服务器，CommunicationServer通信服务器，各个服务之间通过grpc通信，网关对外采用HTTP服务，聊天服务基于asio实现tcp通信和转发。
      
-（4）redis数据库主要用于验证码的query、insert操作，mysql用于存储user information.
+（4）用户数据通过mysql存储并且基于mysqlconnector手动封装连接池，包括redis连接池，以及grpc连接池等。
+
+ (5) 基于boost asio实现异步通信，通过连接池管理连接。单服务器支持8000连接，多服务器分布部署可支持1W~2W活跃用户。
 
 #项目架构概要说明图
 
