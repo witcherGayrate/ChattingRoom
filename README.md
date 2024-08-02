@@ -19,9 +19,26 @@
 
 ![聊天软件架构](https://github.com/user-attachments/assets/a245f991-4796-4981-84eb-61f85bb6501a)
 
+#登录界面
+
+![聊天软件登录界面](https://github.com/user-attachments/assets/5a47d669-75e7-4407-a4d9-731b6fc975bd)
+
+#用户注册界面
+
+![用户注册界面](https://github.com/user-attachments/assets/72d2d53b-25a4-4a6b-8d15-be788a006cd2)
+
+#密码重置界面
+
+![密码重置界面](https://github.com/user-attachments/assets/5e92545c-5d3d-4a30-9228-544c9c3943e6)
+
+
 #客户端界面图
 
-![聊天界面](https://github.com/user-attachments/assets/28bf8ae7-e42c-42cb-8b0f-092f3389daee)
+![聊天界面](https://github.com/user-attachments/assets/0b65f382-cc1d-4c4b-9cee-f7c798274b18)
+
+#联系人界面
+
+![联系人界面](https://github.com/user-attachments/assets/3ba836ee-0954-4cc1-9012-671aa721d30c)
 
 #补充说明
 
