@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    QFile qss(":/style/stylesheet.qss");
+    QFile qss(":/qss/style/stylesheet.qss");
     if(qss.open(QFile::ReadOnly))
     {
         qDebug()<<"qss open sucess";
