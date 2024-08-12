@@ -58,7 +58,7 @@ void MySqlPool::checkConnection()
 			std::unique_ptr<sql::Statement> stmt(con->_con->createStatement());
 			stmt->executeQuery("SELECT 1");
 			con->_last_oper_time = timestamp;
-			std::cout << "execute timer alive query , cur is " << timestamp << std::endl;
+			//std::cout << "execute timer alive query , cur is " << timestamp << std::endl;
 		}
 		catch (sql::SQLException& e) {
 			std::cout << "Error keeping connection alive: " << e.what() << std::endl;
@@ -254,4 +254,52 @@ bool MysqlDao::UpdataPwd(const std::string& name, const std::string& pwd)
 		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
 		return false;
 	}
+}
+
+bool MysqlDao::CheckPwd(const std::string& email, const std::string& pwd, UserInfo& userInfo)
+{
+	auto con = pool_->getConnection();
+	//延迟归还mysql连接
+	Defer defer([this, &con]()
+		{
+			pool_->returnConnection(std::move(con));
+		});//defer析构时调用给定的回调函数
+	try
+	{
+		if (con == nullptr) {
+			return false;
+		}
+		//准备sql语句
+		std::unique_ptr<sql::PreparedStatement> pstmt(con->_con->prepareStatement("SELECT * FROM user WHERE email = ?"));
+		pstmt->setString(1, email);//将username替换为你要查询的用户名
+
+		//执行查询
+		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+		std::string origin_pwd = "";
+		//遍历结果集
+		while (res->next())
+		{
+			origin_pwd = res->getString("pwd");
+			//输出查询到的密码
+			std::cout << "Password: " << origin_pwd << std::endl;
+			break;
+		}
+
+		if (pwd != origin_pwd) {
+			return false;
+		}
+		userInfo.name = res->getString("name");
+		userInfo.email = email;
+		userInfo.uid = res->getInt("uid");
+		userInfo.pwd = origin_pwd;
+		return true;
+	}
+	catch (sql::SQLException &e)
+	{
+		std::cerr << "SQLException: " << e.what();
+		std::cerr << " (MySQL error code: " << e.getErrorCode();
+		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		return false;
+	}
+
 }
