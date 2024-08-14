@@ -39,6 +39,8 @@ private:
 	bool GetBaseInfo(std::string base_key, int uid, std::shared_ptr<UserInfo>& userinfo);
 	//获取好友列表
 	bool  GetFriendList(int self_id, std::vector<std::shared_ptr<UserInfo>>& user_list);
+	//处理转发文本消息
+	void DealChatTextMsg(std::shared_ptr<CSession> session, const short& msg_id, const string& msg_data);
 	//消费线程
 	std::thread _worker_thread;
 	//消息队列

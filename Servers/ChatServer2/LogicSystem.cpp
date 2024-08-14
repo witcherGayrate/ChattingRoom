@@ -102,6 +102,10 @@ void LogicSystem::RegisterCallBacks()
 	//注册好友认证的请求
 	_fun_callbacks[ID_AUTH_FRIEND_REQ] = std::bind(&LogicSystem::AuthFriendApply, this, std::placeholders::_1,
 		placeholders::_2, placeholders::_3);
+	//注册转发文本消息的请求
+	_fun_callbacks[ID_TEXT_CHAT_MSG_REQ] = std::bind(&LogicSystem::DealChatTextMsg, this, std::placeholders::_1,
+		std::placeholders::_2, std::placeholders::_3);
+
 }
 
 void LogicSystem::LoginHandler(shared_ptr<CSession>session, const short& msg_id, const string& msg_data)
@@ -657,4 +661,72 @@ bool LogicSystem::GetFriendList(int self_id, std::vector<std::shared_ptr<UserInf
 {
 	//从mysql获取好友列表
 	return MysqlMgr::GetInstance()->GetFriendList(self_id,user_list);
+}
+
+void LogicSystem::DealChatTextMsg(std::shared_ptr<CSession> session, const short& msg_id, const string& msg_data)
+{
+	//先解析Json数据
+	Json::Reader reader;
+	Json::Value root;
+	reader.parse(msg_data, root);
+
+	auto uid = root["fromuid"].asInt();
+	auto touid = root["touid"].asInt();
+
+	const Json::Value arrays = root["text_array"];//json文本array
+	//转发的json包
+	Json::Value rtValue;
+	rtValue["error"] = ErrorCodes::Success;
+	rtValue["text_array"] = arrays;
+	rtValue["fromuid"] = uid;
+	rtValue["touid"] = touid;
+
+	//在回调函数析构前把消息送至发送队列：这是给发送消息方的回包，告诉它是否发送成功
+	Defer defer([this, &rtValue, session]() {
+		std::string return_str = rtValue.toStyledString();
+		session->Send(return_str, ID_TEXT_CHAT_MSG_RSP);
+		});
+
+	//查看消息接收对象是否在本服务器
+	auto to_str = std::to_string(touid);
+	auto to_ip_key = USERIPPREFIX + to_str;
+	std::string to_ip_value = "";
+	bool b_ip = RedisMgr::GetInstance()->Get(to_ip_key, to_ip_value);
+	if (!b_ip)
+	{
+		return;
+	}
+	auto& cfg = ConfigMgr::Inst();
+	auto self_name = cfg["SelfServer"]["Name"];
+	//在同一个服务器直接通知对方
+	if (to_ip_value == self_name)
+	{
+		//获得消息接收方的连接
+		auto session = UserMgr::GetInstance()->GetSession(touid);
+		if (session)
+		{
+			//在内存中直接发送通知对方
+			std::string return_str = rtValue.toStyledString();
+			session->Send(return_str, ID_NOTIFY_TEXT_CHAT_MSG_REQ);
+			//std::cout << "Debug: LogicSystem::DealChatTextMsg : has send msg_data to peer client!";
+		}
+		return;
+	}
+	//不在同一个服务器则调用rpc服务
+	TextChatMsgReq text_msg_req;
+	text_msg_req.set_fromuid(uid);
+	text_msg_req.set_touid(touid);
+	//解析array中的多个jsonobj
+	for (const auto& text_obj : arrays)
+	{
+		auto content = text_obj["content"].asString();
+		auto msgid = text_obj["msgid"].asString();
+		std::cout << "content is " << content << std::endl;
+		std::cout << "msgid is " << msgid << std::endl;
+		auto* text_msg = text_msg_req.add_textmsgs(); //TextChatData Array
+		text_msg->set_msgid(msgid);
+		text_msg->set_msgcontent(content);
+	}
+	//发送通知
+	ChatGrpcClient::GetInstance()->NotifyTextChatMsg(to_ip_value, text_msg_req, rtValue);//包含消息发送者回包，消息接收者回包
 }
