@@ -34,7 +34,8 @@
 
 #客户端界面图
 
-![聊天界面](https://github.com/user-attachments/assets/0b65f382-cc1d-4c4b-9cee-f7c798274b18)
+![聊天界面](https://github.com/user-attachments/assets/ab14f2f9-e815-49ba-a30c-00dc573f6fdd)
+
 
 #联系人界面
 
