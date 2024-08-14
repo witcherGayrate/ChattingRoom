@@ -17,7 +17,7 @@
 
 #项目架构概要说明图
 
-![聊天软件架构](https://github.com/user-attachments/assets/a245f991-4796-4981-84eb-61f85bb6501a)
+![聊天软件架构1](https://github.com/user-attachments/assets/9b234e3a-b2c8-4af4-b30e-c4cabf208f5f)
 
 #登录界面
 
