@@ -14,6 +14,8 @@
 #include<logindialog.h>
 #include<registerdialog.h>
 #include<resetdialog.h>
+#include<chatdialog.h>
+#include<tcpmgr.h>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -34,11 +36,13 @@ private:
     RegisterDialog *register_dlg=nullptr;//注册界面类
 
     ResetDialog *_reset_dlg =nullptr;//重置密码界面类
+    ChatDialog* _chat_dlg = nullptr;//登录界面类
 public slots:
     void do_switchToReg();
     void do_switchToLogin();
     void SlotSwitchReset();//切换到resetDialog
     void SlotSwitchLogin2();//resetdialog to logindialog
+    void SlotSwitchChat();//切换到聊天界面
 
 };
 

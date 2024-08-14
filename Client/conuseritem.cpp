@@ -64,6 +64,11 @@ void ConUserItem::SetInfo(int uid, QString name, QString icon)
     ui->user_name_lab->setText(_info->_name);
 }
 
+std::shared_ptr<UserInfo> ConUserItem::GetInfo()
+{
+    return _info;
+}
+
 void ConUserItem::ShowRedPoint(bool show)
 {
     if(show)

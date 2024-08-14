@@ -323,6 +323,72 @@ void TcpMgr::initHandlers()
         qDebug() << "Auth Friend Success " ;
     });
 
+    //注册回调函数：发送消息给对方，收到的chatserver回包
+    _handlers.insert(ID_TEXT_CHAT_MSG_RSP,[this](ReqId id,int len,QByteArray data){
+        Q_UNUSED(len);
+        qDebug()<<"handle id is "<< id << " data is"<<data;
+        //将QByteArray转为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        //检查是否转化成功
+        if(jsonDoc.isNull())
+            {
+            qDebug()<<"Failed to create QJsonDocument";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+        if(!jsonObj.contains("error"))
+            {
+            int err = ErrorCodes::ERR_JSON;
+            qDebug()<<"Chat Msg Rsp Failed, err is Json Parse Err"<<err;
+            return;
+        }
+        int err = jsonObj["error"].toInt();
+        if(err!=ErrorCodes::SUCCESS)
+            {
+            qDebug()<<"Chat Msg Rsp Failed, err is "<<err;
+            return;
+        }
+
+        qDebug()<<"Receive Text Chat Rsp Success ";
+        //ui 设置送达等标记 todo...
+    });
+
+    //注册回调：收到chatserver发来的对端聊天对象发送的消息
+    _handlers.insert(ID_NOTIFY_TEXT_CHAT_MSG_REQ, [this](ReqId id, int len, QByteArray data) {
+        Q_UNUSED(len);
+        qDebug() << "handle id is " << id << " data is " << data;
+        // 将QByteArray转换为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        // 检查转换是否成功
+        if (jsonDoc.isNull()) {
+            qDebug() << "Failed to create QJsonDocument.";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+
+        if (!jsonObj.contains("error")) {
+            int err = ErrorCodes::ERR_JSON;
+            qDebug() << "Notify Chat Msg Failed, err is Json Parse Err" << err;
+            return;
+        }
+
+        int err = jsonObj["error"].toInt();
+        if (err != ErrorCodes::SUCCESS) {
+            qDebug() << "Notify Chat Msg Failed, err is " << err;
+            return;
+        }
+
+        qDebug() << "Receive Text Chat Notify Success " ;
+        //解析消息并组织
+        auto msg_ptr = std::make_shared<TextChatMsg>(jsonObj["fromuid"].toInt(),
+                                                     jsonObj["touid"].toInt(),jsonObj["text_array"].toArray());
+        emit sig_text_chat_msg(msg_ptr);
+    });
+
 }
 
 void TcpMgr::handleMsg(ReqId id, int len, QByteArray data)

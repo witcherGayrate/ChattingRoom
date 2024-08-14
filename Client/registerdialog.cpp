@@ -4,6 +4,7 @@
 
 #include<QMessageBox>
 #include"httpmgr.h"
+#include<QRandomGenerator>
 RegisterDialog::RegisterDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::RegisterDialog),_countdown(5)
@@ -14,10 +15,14 @@ RegisterDialog::RegisterDialog(QWidget *parent)
     ui->lineEdit_code_sure->setEchoMode(QLineEdit::Password);
     ui->lab_tip->setProperty("state","normal");//设置lab_tip的状态
     repolish(ui->lab_tip);//刷新状态
+
+    //设置大头照
+    QPixmap headPhtoo(":/icons/cat2.png");
+    headPhtoo = headPhtoo.scaled(ui->lab_photo->size(),Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    ui->lab_photo->setPixmap(headPhtoo);
+
     //捕获httpmgr注册成功信号，registerdialog做出响应slot
     connect(HttpMgr::GetInstance().get(),&HttpMgr::sig_reg_mod_finish,this,&RegisterDialog::slot_reg_mod_finish);
-
-
 
     initHttpHandlers();
     ui->lab_tip->clear();
@@ -257,7 +262,7 @@ bool RegisterDialog::checkPassValid()
     // 创建一个正则表达式对象，按照上述密码要求
     // 这个正则表达式解释：
     // ^[a-zA-Z0-9!@#$%^&*]{6,15}$ 密码长度至少6，可以是字母、数字和特定的特殊字符
-    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*]{6,15}$");
+    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*.]{6,15}$");
     bool match = regExp.match(pass).hasMatch();
     if(!match){
         //提示字符非法
@@ -302,7 +307,7 @@ bool RegisterDialog::checkConfirmValid()
     // 创建一个正则表达式对象，按照上述密码要求
     // 这个正则表达式解释：
     // ^[a-zA-Z0-9!@#$%^&*]{6,15}$ 密码长度至少6，可以是字母、数字和特定的特殊字符
-    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*]{6,15}$");
+    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*.]{6,15}$");
     bool match = regExp.match(confirm).hasMatch();
     if(!match){
         //提示字符非法
@@ -371,6 +376,14 @@ void RegisterDialog::on_btn_sure_clicked()
     json_obj["user"] = ui->lineEdit_user->text();
     json_obj["email"] = ui->lineEdit_email->text();
     json_obj["passwd"] = xorString(ui->lineEdit_code->text()); //字符加密传输
+
+    json_obj["sex"]=0;
+
+    int randomValue = QRandomGenerator::global()->bounded(100);
+    int head_i = randomValue%heads.size();
+
+    json_obj["icon"] = heads[head_i];
+    json_obj["nick"] = ui->lineEdit_user->text();
     json_obj["confirm"] = xorString(ui->lineEdit_code_sure->text());
     json_obj["verifycode"] = ui->lineEdit_verifycode->text();
 

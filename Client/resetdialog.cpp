@@ -13,6 +13,11 @@ ResetDialog::ResetDialog(QWidget *parent)
     ui->newpwd_visible->setProperty("state","normal");
     repolish(ui->newpwd_visible);//刷新样式
 
+    //设置大头照
+    QPixmap headPhtoo(":/icons/panda1.png");
+    headPhtoo = headPhtoo.scaled(ui->lab_photo->size(),Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    ui->lab_photo->setPixmap(headPhtoo);
+
     //设置密码可见图标的鼠标形状
     ui->newpwd_visible->setCursor(Qt::PointingHandCursor);
     //初始化可见图标的属性
@@ -99,7 +104,7 @@ bool ResetDialog::checkPassValid()
     // 创建一个正则表达式对象，按照上述密码要求
     // 这个正则表达式解释：
     // ^[a-zA-Z0-9!@#$%^&*]{6,15}$ 密码长度至少6，可以是字母、数字和特定的特殊字符
-    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*]{6,15}$");
+    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*.]{6,15}$");
     bool match = regExp.match(pass).hasMatch();
     if(!match){
         //提示字符非法

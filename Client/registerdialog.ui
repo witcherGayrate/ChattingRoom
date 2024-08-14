@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>400</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>400</height>
+    <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>400</height>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -32,9 +32,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
+     <y>280</y>
      <width>381</width>
-     <height>371</height>
+     <height>311</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -45,9 +45,9 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>10</y>
-       <width>301</width>
-       <height>251</height>
+       <y>50</y>
+       <width>298</width>
+       <height>233</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -57,23 +57,29 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="2" column="0" colspan="3">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item row="1" column="0" colspan="3">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QLabel" name="lab_email">
+         <widget class="QLabel" name="lab_user_logup">
           <property name="maximumSize">
            <size>
             <width>50</width>
             <height>16777215</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>方正水黑简体</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>邮箱</string>
+           <string>用户</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_email">
+         <widget class="QLineEdit" name="lineEdit_user">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -93,6 +99,12 @@
             <width>50</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>方正水黑简体</family>
+            <pointsize>15</pointsize>
+           </font>
           </property>
           <property name="text">
            <string>密码</string>
@@ -133,6 +145,19 @@
         </item>
        </layout>
       </item>
+      <item row="6" column="2">
+       <widget class="QPushButton" name="btn_cancel">
+        <property name="font">
+         <font>
+          <family>方正水黑简体</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>取消</string>
+        </property>
+       </widget>
+      </item>
       <item row="6" column="1">
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -146,6 +171,22 @@
         </property>
        </spacer>
       </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="lab_tip">
+        <property name="font">
+         <font>
+          <family>方正水黑简体</family>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>错误提示</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
       <item row="4" column="0" colspan="3">
        <layout class="QHBoxLayout" name="horizontalLayout_8">
         <item>
@@ -155,6 +196,12 @@
             <width>50</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>方正水黑简体</family>
+            <pointsize>15</pointsize>
+           </font>
           </property>
           <property name="text">
            <string>确认</string>
@@ -195,37 +242,29 @@
         </item>
        </layout>
       </item>
-      <item row="6" column="0">
-       <widget class="QPushButton" name="btn_sure">
-        <property name="text">
-         <string>确认</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2">
-       <widget class="QPushButton" name="btn_cancel">
-        <property name="text">
-         <string>取消</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="3">
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item row="2" column="0" colspan="3">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <widget class="QLabel" name="lab_user_logup">
+         <widget class="QLabel" name="lab_email">
           <property name="maximumSize">
            <size>
             <width>50</width>
             <height>16777215</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>方正水黑简体</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>用户</string>
+           <string>邮箱</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_user">
+         <widget class="QLineEdit" name="lineEdit_email">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -236,15 +275,34 @@
         </item>
        </layout>
       </item>
+      <item row="6" column="0">
+       <widget class="QPushButton" name="btn_sure">
+        <property name="font">
+         <font>
+          <family>方正水黑简体</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>确认</string>
+        </property>
+       </widget>
+      </item>
       <item row="5" column="0" colspan="3">
        <layout class="QHBoxLayout" name="horizontalLayout_9">
         <item>
          <widget class="QLabel" name="lab_verify">
           <property name="maximumSize">
            <size>
-            <width>50</width>
+            <width>80</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>方正水黑简体</family>
+            <pointsize>15</pointsize>
+           </font>
           </property>
           <property name="text">
            <string>验证码</string>
@@ -263,22 +321,18 @@
         </item>
         <item>
          <widget class="TimerBtn" name="btn_acquire">
+          <property name="font">
+           <font>
+            <family>方正水黑简体</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>获取</string>
           </property>
          </widget>
         </item>
        </layout>
-      </item>
-      <item row="0" column="0" colspan="3">
-       <widget class="QLabel" name="lab_tip">
-        <property name="text">
-         <string>错误提示</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -331,17 +385,33 @@
     </widget>
    </widget>
   </widget>
+  <widget class="QLabel" name="lab_photo">
+   <property name="geometry">
+    <rect>
+     <x>2</x>
+     <y>4</y>
+     <width>391</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>TimerBtn</class>
-   <extends>QPushButton</extends>
-   <header>timerbtn.h</header>
-  </customwidget>
   <customwidget>
    <class>ClickedLabel</class>
    <extends>QLabel</extends>
    <header>clickedlabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TimerBtn</class>
+   <extends>QPushButton</extends>
+   <header>timerbtn.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

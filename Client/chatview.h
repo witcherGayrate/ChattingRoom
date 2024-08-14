@@ -14,6 +14,7 @@ public:
     void appendChatItem(QWidget* item);//在尾部插入item
     void prependChatItem(QWidget* item);//在头部插入
     void insertChatItem(QWidget* before,QWidget* item);
+    void removeAllItem();//移除所有聊天条目
 private:
     void initStyleSheet();
     bool _is_appended;
